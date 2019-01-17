@@ -46,12 +46,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eggjs/egg-bus.git"
+    "url": "git+https://github.com/hexindai/egg-bus.git"
   },
   "bugs": {
-    "url": "https://github.com/eggjs/egg/issues"
+    "url": "https://github.com/hexindai/egg/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-bus#readme",
+  "homepage": "https://github.com/hexindai/egg-bus#readme",
   "author": "abel <abel@seek.cx>",
   "license": "MIT"
 }

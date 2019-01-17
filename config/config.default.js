@@ -6,5 +6,13 @@
  * @property {String} SOME_KEY - some description
  */
 exports.bus = {
-
+  listener: {
+    baseDir: 'listener',
+  },
+  bull: {
+    /* Bull Config */
+  },
+  queue: {
+    enable: true,
+  }
 };
