@@ -130,7 +130,7 @@ class DemoJob extends Job {
 module.exports = DemoJob;
 ```
 
-在 handle 中抛出任何未捕获的异常都会认为 `job` 执行失败，会在指定次数内重新尝试。
+在 run 中抛出任何未捕获的异常都会认为 `job` 执行失败，会在指定次数内重新尝试。
 
 ### Listener
 
