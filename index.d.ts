@@ -1,4 +1,5 @@
 import { QueueOptions } from 'bull';
+import { Context, Application } from 'egg';
 
 interface Bus {
   dispatch(name: string, payload: any): void;
@@ -26,5 +27,12 @@ declare module 'egg' {
 
   interface EggAppConfig {
     bus: EggRedisOptions;
+  }
+}
+
+declare module 'egg-bus' {
+  abstract class Listener {
+    ctx: Context;
+    app: Application;
   }
 }
