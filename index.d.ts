@@ -11,11 +11,13 @@ interface EggBusOptions {
   debug?: boolean,
   concurrency?: number;
   listener?: {
+    ignore?: string;
     baseDir?: string;
     options?: JobOptions;
   },
   bull?: QueueOptions;
   job?: {
+    ignore?: string;
     baseDir?: string;
     options?: JobOptions;
   };
