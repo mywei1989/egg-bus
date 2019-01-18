@@ -120,6 +120,7 @@ class DemoJob extends Job {
     // job 任务运行时调用
     // 第一个参数是发送过来的数据
     // 第二个参数是 Bull 的原始 Job 对象
+    // 通过 this.ctx 和 this.app 分别获取 egg 的 Context 和 Application 对象
   }
 
   failed(data) {
@@ -171,6 +172,7 @@ class DemoListener extends Listener {
     // - name 事件名称
     // - data 数据
     // 第二个参数是 Bull 的原始 Job 对象
+    // 通过 this.ctx 和 this.app 分别获取 egg 的 Context 和 Application 对象
     console.log(event.name, event.data);
   }
 
