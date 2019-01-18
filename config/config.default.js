@@ -6,13 +6,19 @@
  * @property {String} SOME_KEY - some description
  */
 exports.bus = {
+  debug: true,
   listener: {
     baseDir: 'listener',
   },
   bull: {
-    /* Bull Config */
+    redis: {
+      host: 'localhost',
+      port: 6379,
+      db: 0,
+    },
   },
-  queue: {
-    enable: true,
-  }
+  job: {
+    baseDir: 'job',
+  },
+  queues: {},
 };

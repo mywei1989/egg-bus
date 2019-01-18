@@ -4,7 +4,11 @@ const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
   async index() {
-    this.ctx.body = 'hi, ' + this.app.plugins.bus.name;
+    const { app, ctx } = this;
+
+    app.bus.emit('boot', { name: 'abel' });
+
+    ctx.body = 'hi, bus';
   }
 }
 
