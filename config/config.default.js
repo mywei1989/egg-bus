@@ -16,7 +16,7 @@ exports.bus = {
         delay: 3000,
         type: 'fixed',
       },
-    }
+    },
   },
   bull: {
     redis: {
@@ -33,7 +33,7 @@ exports.bus = {
         delay: 3000,
         type: 'fixed',
       },
-    }
+    },
   },
   queue: {
     default: 'default', // 默认队列名称

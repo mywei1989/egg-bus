@@ -42,10 +42,46 @@ exports.bus = {
 ```js
 // {app_root}/config/config.default.js
 exports.bus = {
+  debug: true, // Debug 模式下会打印更多日志信息
+  concurrency: 1, // Bull 中队列处理的并发数：https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queueprocess
+  listener: {
+    baseDir: 'listener',
+    options: { // Bull Job 配置： https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queueadd
+      attempts: 5,
+      backoff: {
+        delay: 3000,
+        type: 'fixed',
+      },
+    }
+  },
+  job: {
+    // 与 listener 一致，唯一不同的就是 默认 baseDir 的值为 `job`
+  },
+  bull: { // Bull 队列配置：https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queue
+    redis: {
+      host: 'localhost',
+      port: 6379,
+      db: 0,
+    },
+  },
+
+  queue: {
+    default: 'default', // 默认队列名称
+    prefix: 'bus', // 队列前缀
+  },
+  queues: { // 针对不同队列单独配置
+
+    // 比如针对默认队列更改 redis 端口
+    default: {
+      redis: {
+        port: 6380,
+      },
+    }
+  },
 };
 ```
 
-see [config/config.default.js](config/config.default.js) for more detail.
+更多配置说明请查看 [config/config.default.js](config/config.default.js)
 
 ## Example
 
