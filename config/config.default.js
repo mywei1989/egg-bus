@@ -7,8 +7,16 @@
  */
 exports.bus = {
   debug: true,
+  concurrency: 1,
   listener: {
     baseDir: 'listener',
+    options: {
+      attempts: 5,
+      backoff: {
+        delay: 3000,
+        type: 'fixed',
+      },
+    }
   },
   bull: {
     redis: {
@@ -19,6 +27,13 @@ exports.bus = {
   },
   job: {
     baseDir: 'job',
+    options: {
+      attempts: 5,
+      backoff: {
+        delay: 3000,
+        type: 'fixed',
+      },
+    }
   },
   queue: {
     default: 'default', // 默认队列名称

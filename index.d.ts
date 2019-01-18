@@ -1,23 +1,26 @@
-import { Queue, QueueOptions } from 'bull';
+import { Queue, QueueOptions, JobOptions } from 'bull';
 import { Context, Application } from 'egg';
 
 interface Bus {
   get(name: string): Queue;
-  dispatch(name: string, payload: any): void;
-  emit(name: string, payload: any): void;
+  dispatch(name: string, payload?: any, options?: JobOptions): void;
+  emit(name: string, payload?: any, options?: JobOptions): void;
 }
 
 interface EggBusOptions {
   debug?: boolean,
+  concurrency?: number;
   listener?: {
-    baseDir?: string,
+    baseDir?: string;
+    options?: JobOptions;
   },
-  bull?: QueueOptions,
+  bull?: QueueOptions;
   job?: {
-    baseDir?: string,
-  },
+    baseDir?: string;
+    options?: JobOptions;
+  };
   queues?: {
-    [x: string]: QueueOptions
+    [x: string]: QueueOptions;
   }
 }
 
