@@ -20,7 +20,7 @@
 [download-image]: https://img.shields.io/npm/dm/egg-bus.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-bus
 
-基于 [bull](https://github.com/OptimalBits/bull) 实现的事件队列系统。
+🐣用 egg 编写优雅的队列与事件，基于 [bull](https://github.com/OptimalBits/bull) 实现
 
 ## 安装
 
