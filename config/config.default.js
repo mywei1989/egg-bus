@@ -20,5 +20,9 @@ exports.bus = {
   job: {
     baseDir: 'job',
   },
+  queue: {
+    default: 'default', // 默认队列名称
+    prefix: 'bus', // 队列前缀
+  },
   queues: {},
 };

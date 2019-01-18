@@ -1,7 +1,8 @@
-import { QueueOptions } from 'bull';
+import { Queue, QueueOptions } from 'bull';
 import { Context, Application } from 'egg';
 
 interface Bus {
+  get(name: string): Queue;
   dispatch(name: string, payload: any): void;
   emit(name: string, payload: any): void;
 }
@@ -32,6 +33,11 @@ declare module 'egg' {
 
 declare module 'egg-bus' {
   abstract class Listener {
+    ctx: Context;
+    app: Application;
+  }
+
+  abstract class Job {
     ctx: Context;
     app: Application;
   }
