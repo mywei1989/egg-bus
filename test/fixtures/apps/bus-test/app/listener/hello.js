@@ -5,7 +5,7 @@ class HelloListener {
     return [ 'boot' ];
   }
 
-  handle(data) {
+  run(data) {
     console.log(`hello ${data.name}`);
   }
 }
