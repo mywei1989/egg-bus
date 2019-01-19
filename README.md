@@ -198,8 +198,45 @@ module.exports = DemoListener;
 
 ```js
 const data = { name: 'abel' };
-app.bus.emit('demo', data);
+app.bus.emit('opened', data);
 ```
+
+## Api 参考
+
+所有可用的 `api` 都位于 `app.bus` 对象下：
+
+### dispatch
+
+触发一个任务
+
+```ts
+dispatch(name: string, payload?: any, options?: JobOptions): void
+```
+
+- name 任务名，和 `job` 文件名一致 
+- payload 发送的数据
+- options Bull Job 的一些定制化选项
+
+### emit
+
+触发一个事件
+
+```ts
+emit(name: string, payload?: any, options?: JobOptions): void
+```
+
+- name 事件名称 
+- payload 发送的数据
+- options Bull Job 的一些定制化选项
+
+### get
+
+获取原始的 Bull 队列实例
+
+```ts
+get(name: string): Queue
+```
+- name 队列名称
 
 ## 问题和建议
 
