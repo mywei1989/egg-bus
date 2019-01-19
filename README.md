@@ -213,9 +213,9 @@ app.bus.emit('opened', data);
 dispatch(name: string, payload?: any, options?: JobOptions): void
 ```
 
-- name 任务名，和 `job` 文件名一致 
-- payload 发送的数据
-- options Bull Job 的一些定制化选项
+- `name` 任务名，和 `job` 文件名一致 
+- `payload` 发送的数据
+- `options` Bull Job 的一些定制化选项
 
 ### emit
 
@@ -225,9 +225,9 @@ dispatch(name: string, payload?: any, options?: JobOptions): void
 emit(name: string, payload?: any, options?: JobOptions): void
 ```
 
-- name 事件名称 
-- payload 发送的数据
-- options Bull Job 的一些定制化选项
+- `name` 事件名称 
+- `payload` 发送的数据
+- `options` Bull Job 的一些定制化选项
 
 ### get
 
@@ -236,7 +236,7 @@ emit(name: string, payload?: any, options?: JobOptions): void
 ```ts
 get(name: string): Queue
 ```
-- name 队列名称
+- `name` 队列名称
 
 ## 问题和建议
 
