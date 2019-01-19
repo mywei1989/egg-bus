@@ -133,6 +133,13 @@ module.exports = DemoJob;
 
 在 run 中抛出任何未捕获的异常都会认为 `job` 执行失败，会在指定次数内重新尝试。
 
+通过 `dispatch` 方法触发一个 `job` ：
+
+```js
+const data = { name: 'abel' };
+app.bus.dispatch('demo', data);
+```
+
 ### Listener
 
 `listener` 用于监听事件发生并执行某些任务。很多情况下，我们需要将核心业务与一些耗时
@@ -185,6 +192,14 @@ module.exports = DemoListener;
 ```
 
 事件的监听并不需要编写对应关系，你只需要告诉 `listener` 需要注意哪些事件就行了。
+
+
+通过 `emit` 方法触发一个 `事件` ：
+
+```js
+const data = { name: 'abel' };
+app.bus.emit('demo', data);
+```
 
 ## 问题和建议
 
