@@ -1,5 +1,5 @@
-import { Queue, QueueOptions, JobOptions } from 'bull';
 import { Context, Application } from 'egg';
+import { Queue, QueueOptions, JobOptions, Job } from 'bull';
 
 interface Bus {
   get(name: string): Queue;
@@ -7,8 +7,15 @@ interface Bus {
   emit(name: string, payload?: any, options?: JobOptions): void;
 }
 
+interface BusEvent {
+  name: string;
+  data: any;
+}
+
 interface EggBusOptions {
-  debug?: boolean,
+  app?: boolean;
+  agent?: boolean;
+  debug?: boolean;
   concurrency?: number;
   listener?: {
     ignore?: string;
@@ -32,7 +39,7 @@ declare module 'egg' {
   }
 
   interface EggAppConfig {
-    bus: EggRedisOptions;
+    bus: EggBusOptions;
   }
 }
 
@@ -40,10 +47,14 @@ declare module 'egg-bus' {
   abstract class Listener {
     ctx: Context;
     app: Application;
+
+    abstract run(event: BusEvent, job: Job): Promise<any>;
   }
 
   abstract class Job {
     ctx: Context;
     app: Application;
+
+    abstract run(data: any, job: Job): Promise<any>;
   }
 }
