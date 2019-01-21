@@ -120,6 +120,7 @@ class DemoJob extends Job {
     // job 任务运行时调用
     // 第一个参数是发送过来的数据
     // 第二个参数是 Bull 的原始 Job 对象
+    // 通过 this.ctx 和 this.app 分别获取 egg 的 Context 和 Application 对象
   }
 
   failed(data) {
@@ -131,6 +132,13 @@ module.exports = DemoJob;
 ```
 
 在 run 中抛出任何未捕获的异常都会认为 `job` 执行失败，会在指定次数内重新尝试。
+
+通过 `dispatch` 方法触发一个 `job` ：
+
+```js
+const data = { name: 'abel' };
+app.bus.dispatch('demo', data);
+```
 
 ### Listener
 
@@ -171,6 +179,7 @@ class DemoListener extends Listener {
     // - name 事件名称
     // - data 数据
     // 第二个参数是 Bull 的原始 Job 对象
+    // 通过 this.ctx 和 this.app 分别获取 egg 的 Context 和 Application 对象
     console.log(event.name, event.data);
   }
 
@@ -183,6 +192,51 @@ module.exports = DemoListener;
 ```
 
 事件的监听并不需要编写对应关系，你只需要告诉 `listener` 需要注意哪些事件就行了。
+
+
+通过 `emit` 方法触发一个 `事件` ：
+
+```js
+const data = { name: 'abel' };
+app.bus.emit('opened', data);
+```
+
+## Api 参考
+
+所有可用的 `api` 都位于 `app.bus` 对象下：
+
+### dispatch
+
+触发一个任务
+
+```ts
+dispatch(name: string, payload?: any, options?: JobOptions): void
+```
+
+- `name` 任务名，和 `job` 文件名一致 
+- `payload` 发送的数据
+- `options` Bull Job 的一些定制化选项
+
+### emit
+
+触发一个事件
+
+```ts
+emit(name: string, payload?: any, options?: JobOptions): void
+```
+
+- `name` 事件名称 
+- `payload` 发送的数据
+- `options` Bull Job 的一些定制化选项
+
+### get
+
+获取原始的 Bull 队列实例
+
+```ts
+get(name: string): Queue
+```
+- `name` 队列名称
 
 ## 问题和建议
 
