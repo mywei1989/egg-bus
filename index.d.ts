@@ -48,6 +48,7 @@ declare module 'egg-bus' {
     ctx: Context;
     app: Application;
 
+    abstract get watch(): string[];
     abstract run(event: BusEvent, job: Job): Promise<any>;
   }
 
