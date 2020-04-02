@@ -1,15 +1,15 @@
-import { Context, Application } from 'egg';
-import { Queue, QueueOptions, JobOptions, Job } from 'bull';
+import { Context, Application } from "egg";
+import { Queue, QueueOptions, JobOptions, Job as BullJob } from "bull";
 
 interface Bus {
   get(name: string): Queue;
-  dispatch(name: string, payload?: any, options?: JobOptions): void;
-  emit(name: string, payload?: any, options?: JobOptions): void;
+  dispatch<T = object>(name: string, payload?: T, options?: JobOptions): void;
+  emit<T = object>(name: string, payload?: T, options?: JobOptions): void;
 }
 
-interface BusEvent {
+interface BusEvent<T = object> {
   name: string;
-  data: any;
+  data: T;
 }
 
 interface EggBusOptions {
@@ -21,8 +21,12 @@ interface EggBusOptions {
     ignore?: string;
     baseDir?: string;
     options?: JobOptions;
-  },
+  };
   bull?: QueueOptions;
+  queue?: {
+    prefix?: string;
+    default?: string;
+  };
   job?: {
     ignore?: string;
     baseDir?: string;
@@ -30,10 +34,10 @@ interface EggBusOptions {
   };
   queues?: {
     [x: string]: QueueOptions;
-  }
+  };
 }
 
-declare module 'egg' {
+declare module "egg" {
   interface Application {
     bus: Bus;
   }
@@ -43,19 +47,25 @@ declare module 'egg' {
   }
 }
 
-declare module 'egg-bus' {
-  abstract class Listener {
-    ctx: Context;
-    app: Application;
-
-    abstract get watch(): string[];
-    abstract run(event: BusEvent, job: Job): Promise<any>;
+declare module "egg-bus" {
+  interface ListenerStruct<T> {
+    name: string;
+    data: T;
   }
 
-  abstract class Job {
+  abstract class Listener<T = object> {
     ctx: Context;
     app: Application;
 
-    abstract run(data: any, job: Job): Promise<any>;
+    abstract run(event: BusEvent<T>, job: BullJob): Promise<any>;
+    abstract failed(struct: ListenerStruct<T>, error: Error, job: BullJob): Promise<any>;
+  }
+
+  abstract class Job<T = object> {
+    ctx: Context;
+    app: Application;
+
+    abstract run(data: T, job: BullJob): Promise<any>;
+    abstract failed(data: T, error: Error, job: BullJob): Promise<any>;
   }
 }
