@@ -28,10 +28,6 @@ interface EggBusOptions {
     baseDir?: string;
     options?: JobOptions;
   };
-  queue?: {
-    prefix?: string,
-    default?: string,
-  },
   queues?: {
     [x: string]: QueueOptions;
   }
@@ -60,8 +56,6 @@ declare module 'egg-bus' {
     ctx: Context;
     app: Application;
 
-    abstract static get queue(): string;
-    abstract static get attempts(): number;
     abstract run(data: any, job: Job): Promise<any>;
   }
 }
