@@ -1,0 +1,14 @@
+sudo: false
+language: node_js
+node_js:
+  - '8'
+  - '9'
+  - '10'
+install:
+  - npm i npminstall && npminstall
+services:
+- redis-server
+script:
+  - npm run ci
+after_script:
+  - npminstall codecov && codecov
