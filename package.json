@@ -1,6 +1,6 @@
 {
   "name": "egg-bus",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "description": "Elegant queue and event plugin.",
   "eggPlugin": {
     "name": "bus"
@@ -43,7 +43,6 @@
     "index.js",
     "lib",
     "config",
-    "agent.js",
     "app.js",
     "index.d.ts"
   ],
