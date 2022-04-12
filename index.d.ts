@@ -33,7 +33,7 @@ interface EggBusOptions {
     options?: JobOptions;
   };
   queues?: {
-    [x: string]: QueueOptions;
+    [x: string]: QueueOptions & { concurrency: number };
   };
 }
 
@@ -58,7 +58,11 @@ declare module "egg-bus" {
     app: Application;
 
     abstract run(event: BusEvent<T>, job: BullJob): Promise<any>;
-    abstract failed(struct: ListenerStruct<T>, error: Error, job: BullJob): Promise<any>;
+    abstract failed(
+      struct: ListenerStruct<T>,
+      error: Error,
+      job: BullJob
+    ): Promise<any>;
   }
 
   abstract class Job<T = object> {

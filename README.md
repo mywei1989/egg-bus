@@ -20,7 +20,7 @@
 [download-image]: https://img.shields.io/npm/dm/egg-bus.svg?style=flat-square
 [download-url]: https://npmjs.org/package/egg-bus
 
-🐣用 egg 编写优雅的队列与事件，基于 [bull](https://github.com/OptimalBits/bull) 实现
+🐣 用 egg 编写优雅的队列与事件，基于 [bull](https://github.com/OptimalBits/bull) 实现
 
 ## 安装
 
@@ -33,7 +33,7 @@ $ npm i egg-bus --save
 ```js
 exports.bus = {
   enable: true,
-  package: 'egg-bus',
+  package: "egg-bus",
 };
 ```
 
@@ -46,38 +46,42 @@ exports.bus = {
   concurrency: 1, // Bull 中队列处理的并发数：https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queueprocess
   listener: {
     ignore: null, // 忽略目录中的某些文件，https://eggjs.org/zh-cn/advanced/loader.html#ignore-string
-    baseDir: 'listener',
-    options: { // Bull Job 配置： https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queueadd
+    baseDir: "listener",
+    options: {
+      // Bull Job 配置： https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queueadd
       attempts: 5,
       backoff: {
         delay: 3000,
-        type: 'fixed',
+        type: "fixed",
       },
-    }
+    },
   },
   job: {
     // 与 listener 一致，唯一不同的就是 默认 baseDir 的值为 `job`
   },
-  bull: { // Bull 队列配置：https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queue
+  bull: {
+    // Bull 队列配置：https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queue
     redis: {
-      host: 'localhost',
+      host: "localhost",
       port: 6379,
       db: 0,
     },
   },
 
   queue: {
-    default: 'default', // 默认队列名称
-    prefix: 'bus', // 队列前缀
+    default: "default", // 默认队列名称
+    prefix: "bus", // 队列前缀
   },
-  queues: { // 针对不同队列单独配置
+  queues: {
+    // 针对不同队列单独配置
 
     // 比如针对默认队列更改 redis 端口
     default: {
+      concurrency: 2, // 针对队列单独设置并发
       redis: {
         port: 6380,
       },
-    }
+    },
   },
 };
 ```
@@ -105,11 +109,11 @@ app
 `job` 是队列中的一项任务。在 `app/job` 目录，定义一个 `job`：
 
 ```js
-const { Job } = require('egg-bus');
+const { Job } = require("egg-bus");
 
 class DemoJob extends Job {
   static get queue() {
-    return 'queue_name'; // 使用的队列名称
+    return "queue_name"; // 使用的队列名称
   }
 
   static get attempts() {
@@ -136,8 +140,8 @@ module.exports = DemoJob;
 通过 `dispatch` 方法触发一个 `job` ：
 
 ```js
-const data = { name: 'abel' };
-app.bus.dispatch('demo', data);
+const data = { name: "abel" };
+app.bus.dispatch("demo", data);
 ```
 
 ### Listener
@@ -151,22 +155,22 @@ app.bus.dispatch('demo', data);
 1. 在异步中运行的代码如果不使用 `app.runInBackground` 就无法被 `egg` 捕获异常而记录日志；
 2. 如果发生错误，没有重试机制；
 3. `nodejs` 本身的 `event` 机制在 `listener` 数量上有限制，虽然可以通过参数提高这个阈值，
-但这可能引发其它问题。
+   但这可能引发其它问题。
 4. 不够优雅！不够优雅！不够优雅！有很多类似的模块来解决这些问题，但大多只提供了基础功能。
-比如告诉你怎么创建队列，怎么监听队列，却并没有告诉你这些创建队列、监听队列的代码应该放在何处。
+   比如告诉你怎么创建队列，怎么监听队列，却并没有告诉你这些创建队列、监听队列的代码应该放在何处。
 
 因此，为了解决上面这些问题，参考 `laravel` 的事件机制设计了 `listener`。
 
 ```js
-const { Listener } = require('egg-bus');
+const { Listener } = require("egg-bus");
 
 class DemoListener extends Listener {
   static get watch() {
-    return [ 'opened', 'visited' ]; // 监听的事件名称
+    return ["opened", "visited"]; // 监听的事件名称
   }
 
   static get queue() {
-    return 'queue_name'; // 使用的队列名称
+    return "queue_name"; // 使用的队列名称
   }
 
   static get attempts() {
@@ -193,12 +197,11 @@ module.exports = DemoListener;
 
 事件的监听并不需要编写对应关系，你只需要告诉 `listener` 需要注意哪些事件就行了。
 
-
 通过 `emit` 方法触发一个 `事件` ：
 
 ```js
-const data = { name: 'abel' };
-app.bus.emit('opened', data);
+const data = { name: "abel" };
+app.bus.emit("opened", data);
 ```
 
 ## Api 参考
@@ -213,7 +216,7 @@ app.bus.emit('opened', data);
 dispatch(name: string, payload?: any, options?: JobOptions): void
 ```
 
-- `name` 任务名，和 `job` 文件名一致 
+- `name` 任务名，和 `job` 文件名一致
 - `payload` 发送的数据
 - `options` Bull Job 的一些定制化选项
 
@@ -225,7 +228,7 @@ dispatch(name: string, payload?: any, options?: JobOptions): void
 emit(name: string, payload?: any, options?: JobOptions): void
 ```
 
-- `name` 事件名称 
+- `name` 事件名称
 - `payload` 发送的数据
 - `options` Bull Job 的一些定制化选项
 
@@ -236,6 +239,7 @@ emit(name: string, payload?: any, options?: JobOptions): void
 ```ts
 get(name: string): Queue
 ```
+
 - `name` 队列名称
 
 ## 问题和建议

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * egg-bus default config
@@ -11,35 +11,39 @@ exports.bus = {
   debug: true,
   concurrency: 1,
   listener: {
-    baseDir: 'listener',
+    baseDir: "listener",
     options: {
       attempts: 5,
       backoff: {
         delay: 3000,
-        type: 'fixed',
+        type: "fixed",
       },
     },
   },
   bull: {
     redis: {
-      host: 'localhost',
+      host: "localhost",
       port: 6379,
       db: 0,
     },
   },
   job: {
-    baseDir: 'job',
+    baseDir: "job",
     options: {
       attempts: 5,
       backoff: {
         delay: 3000,
-        type: 'fixed',
+        type: "fixed",
       },
     },
   },
   queue: {
-    default: 'default', // 默认队列名称
-    prefix: 'bus', // 队列前缀
+    default: "default", // 默认队列名称
+    prefix: "bus", // 队列前缀
   },
-  queues: {},
+  queues: {
+    worker: {
+      concurrency: 2,
+    },
+  },
 };
