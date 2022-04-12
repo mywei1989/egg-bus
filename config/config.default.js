@@ -41,5 +41,9 @@ exports.bus = {
     default: 'default', // 默认队列名称
     prefix: 'bus', // 队列前缀
   },
-  queues: {},
+  queues: {
+    worker: {
+      concurrency: 2,
+    },
+  },
 };
