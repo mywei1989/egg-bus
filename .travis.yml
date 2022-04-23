@@ -7,7 +7,7 @@ node_js:
 install:
   - npm i npminstall && npminstall
 services:
-- redis-server
+  - redis-server
 script:
   - npm run ci
 after_script:
