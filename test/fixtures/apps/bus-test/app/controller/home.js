@@ -9,7 +9,7 @@ class HomeController extends Controller {
     const { app, ctx } = this;
 
     setPayload(null);
-    app.bus.emit('test', { name: 'event' });
+    app.bus.emit('test', { name: 'event' }, { removeOnComplete: true });
 
     ctx.body = await this.echo();
   }
@@ -18,7 +18,7 @@ class HomeController extends Controller {
     const { app, ctx } = this;
 
     setPayload(null);
-    app.bus.dispatch('test', { name: 'job' });
+    app.bus.dispatch('test', { name: 'job' }, { removeOnComplete: true });
 
     ctx.body = await this.echo();
   }
