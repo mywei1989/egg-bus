@@ -1,12 +1,18 @@
 'use strict';
 
+const { setPayload } = require('../tester');
+
 class HelloListener {
   static get watch() {
-    return [ 'boot' ];
+    return [ 'test' ];
   }
 
-  run(data) {
-    console.log(`hello ${data.name}`);
+  static get isBus() {
+    return true;
+  }
+
+  run(event) {
+    setPayload(`hi, ${event.data.name}`);
   }
 }
 

@@ -6,5 +6,6 @@ coverage/
 run/
 .DS_Store
 *.swp
+.vscode/
 
 package-lock.json

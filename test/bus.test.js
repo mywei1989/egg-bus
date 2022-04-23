@@ -14,10 +14,17 @@ describe('test/bus.test.js', () => {
   after(() => app.close());
   afterEach(mock.restore);
 
-  it('should GET /', () => {
+  it('emit event', () => {
     return app.httpRequest()
-      .get('/')
-      .expect('hi, bus')
+      .get('/emit-event')
+      .expect('hi, event')
+      .expect(200);
+  });
+
+  it('dispatch job', () => {
+    return app.httpRequest()
+      .get('/dispatch-job')
+      .expect('hi, job')
       .expect(200);
   });
 });
