@@ -13,7 +13,7 @@
     "egg-plugin"
   ],
   "dependencies": {
-    "bull": "^3.5.2",
+    "bull": "^4.8.2",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
