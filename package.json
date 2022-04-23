@@ -1,6 +1,6 @@
 {
   "name": "egg-bus",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Elegant queue and event plugin.",
   "eggPlugin": {
     "name": "bus"
@@ -13,13 +13,15 @@
     "egg-plugin"
   ],
   "dependencies": {
-    "bull": "^4.8.2",
     "lodash": "^4.17.11"
+  },
+  "peerDependencies": {
+    "bull": ">=4.0.0"
   },
   "devDependencies": {
     "autod": "^3.0.0",
     "autod-egg": "^1.0.0",
-    "egg": "^2.0.0",
+    "egg": "^2.35.0",
     "egg-bin": "^4.3.0",
     "egg-ci": "^1.8.0",
     "egg-mock": "^3.13.0",

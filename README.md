@@ -25,7 +25,7 @@
 ## 安装
 
 ```bash
-$ npm i egg-bus --save
+$ npm i egg-bus bull --save
 ```
 
 ## 使用
