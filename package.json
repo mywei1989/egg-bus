@@ -1,6 +1,6 @@
 {
   "name": "egg-bus",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Elegant queue and event plugin.",
   "eggPlugin": {
     "name": "bus"
