@@ -42,6 +42,7 @@ exports.bus = {
 ```js
 // {app_root}/config/config.default.js
 exports.bus = {
+  agent: true, // 默认为false  若设置为true 则同时挂载在agent 上
   debug: true, // Debug 模式下会打印更多日志信息
   concurrency: 1, // Bull 中队列处理的并发数：https://github.com/OptimalBits/bull/blob/develop/REFERENCE.md#queueprocess
   listener: {
