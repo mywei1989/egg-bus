@@ -23,6 +23,22 @@ class HomeController extends Controller {
     ctx.body = await this.echo();
   }
 
+  async emitEventFromAgent() {
+    const { app, ctx } = this;
+    setPayload(null);
+    app.messenger.sendToAgent('emitEvent', { name: 'event(from agent)' });
+    ctx.body = await this.echo();
+  }
+
+  async dispatchJobFromAgent() {
+    const { app, ctx } = this;
+    setPayload(null);
+    app.messenger.sendToAgent('dispatchJob', { name: 'job(from agent)' });
+
+    ctx.body = await this.echo();
+  }
+
+
   async echo() {
     return await new Promise(resolve => {
       setInterval(() => {

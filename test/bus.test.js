@@ -27,4 +27,19 @@ describe('test/bus.test.js', () => {
       .expect('hi, job')
       .expect(200);
   });
+
+  it('emit event from agent', () => {
+    return app.httpRequest()
+      .get('/emit-event-agent')
+      .expect('hi, event(from agent)')
+      .expect(200);
+  });
+
+  it('dispatch job from agent', () => {
+    return app.httpRequest()
+      .get('/dispatch-job-agent')
+      .expect('hi, job(from agent)')
+      .expect(200);
+  });
+
 });
