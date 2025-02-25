@@ -27,5 +27,4 @@ describe('test/bus.test.js', () => {
       .expect('hi, job')
       .expect(200);
   });
-\
 });
