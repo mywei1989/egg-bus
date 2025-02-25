@@ -7,7 +7,6 @@
  */
 exports.bus = {
   app: true,
-  agent: true,
   debug: true,
   concurrency: 1,
   listener: {
