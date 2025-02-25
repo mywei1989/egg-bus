@@ -14,7 +14,6 @@ interface BusEvent<T = object> {
 
 interface EggBusOptions {
   app?: boolean;
-  agent?: boolean;
   debug?: boolean;
   concurrency?: number;
   listener?: {
